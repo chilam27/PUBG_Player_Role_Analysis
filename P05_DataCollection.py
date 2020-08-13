@@ -27,6 +27,7 @@ player = []
 match = []
 damages = []
 knock = []
+kill = []
 survive = []
 assist = []
 longest = []
@@ -37,33 +38,39 @@ main_weapon = []
 ##Extract values from the table
 for col in range(1, cols+1):
     for row in range(1, rows+1):
-        value = driver.find_element_by_xpath('//*[@id="player_stats"]/div/div[3]/div/table/tbody/tr[' + str(row) + ']/td[' + str(col) + ']').text
-        print(value)
-        if col == 1:
-            player_rank.append(value)
-        elif col == 2:
-            player.append(value)
-        elif col == 3:
-            match.append(value)
-        elif col == 5:
-            damages.append(value)
-        elif col == 6:
-            knock.append(value)
-        elif col == 7:
-            survive.append(value)
-        elif col == 8:
-            assist.append(value)
-        elif col == 9:
-            longest.append(value)
-        elif col == 10:
-            traveled.append(value)
-        elif col == 11:
-            accuracy.append(value)
+        if col <= 11:
+            value = driver.find_element_by_xpath('//*[@id="player_stats"]/div/div[3]/div/table/tbody/tr[' + str(row) + ']/td[' + str(col) + ']').text
+            print(value)
+            if col == 1:
+                player_rank.append(value)
+            elif col == 2:
+                player.append(value)
+            elif col == 3:
+                match.append(value)
+            elif col == 4:
+                kill.append(value)
+            elif col == 5:
+                damages.append(value)
+            elif col == 6:
+                knock.append(value)
+            elif col == 7:
+                survive.append(value)
+            elif col == 8:
+                assist.append(value)
+            elif col == 9:
+                longest.append(value)
+            elif col == 10:
+                traveled.append(value)
+            elif col == 11:
+                accuracy.append(value)
         else:
-            main_weapon.append(value) #for some reason, it returns kill count isntead
+            value = driver.find_element_by_xpath('//*[@id="player_stats"]/div/div[3]/div/table/tbody/tr[' + str(row) + ']/td[' + str(col) + ']/label').get_attribute('title')
+            print(value)
+            main_weapon.append(value)
+            
 
 ##Create a dataframe based on lists
-df_player = pd.DataFrame(list(zip(player_rank, player, match, damages, knock, main_weapon, survive, assist, longest, traveled, accuracy)), columns = ['rank', 'player', 'match', 'damages', 'knock', 'kill', 'survive', 'assist', 'longest', 'traveled', 'accuracy'])
+df_player = pd.DataFrame(list(zip(player_rank, player, match, damages, knock, kill, survive, assist, longest, traveled, accuracy, main_weapon)), columns = ['rank', 'player', 'match', 'damages', 'knock', 'kill', 'survive', 'assist', 'longest', 'traveled', 'accuracy', 'main_weapon'])
 
 
 #Create path: team info
