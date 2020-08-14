@@ -21,6 +21,17 @@ df_team.info()
 df_kill.info()
 
 
+#Cleaning column in "df_team"
+##team_rank
+df_team.team_rank = df_team.team_rank.apply(lambda x: int(x.split('\n')[0]))
+
+##team
+df_team.team[df_team.team == 'Fury Australia'] = 'FURY'
+df_team.team[df_team.team == 'Victim FTF'] = 'VTF'
+df_team.team[df_team.team == 'QC4'] = 'QC'
+df_team.team[df_team.team == 'TFF'] = 'FRX'
+
+
 #Cleaning columns in "df_player"
 ##survive: change to seconds
 df_player.survive = df_player.survive.apply(lambda x: x.replace('m',''))
@@ -42,21 +53,20 @@ df_player['kill_per_match'] = df_player.kill / df_player.match
 ## Create a damage_per_match column
 df_player['damages_per_match'] = df_player.damages / df_player.match
 
-
-#Cleaning column in "df_team"
-##team_rank
-df_team.team_rank = df_team.team_rank.apply(lambda x: int(x.split('\n')[0]))
-
-
-#team
-df_team.team[df_team.team == 'Fury Australia'] = 'FURY'
-df_team.team[df_team.team == 'Victim FTF'] = 'VTF'
-
+##Create a team_placement column
+team_placement = []
+for x in range(len(df_player.player)):
+    for y in range(len(df_team.team)):
+        if df_player.player[x].split('_')[0].lower() in df_team.team[y].lower():
+            rank = df_team.team_rank[y]
+            team_placement.append(rank)
+            
+df_player['team_placement'] = team_placement
+            
 
 #Cleaning columns in "df_kill"
 ##team
-df_kill.team[df_kill.team == 'Fury Australia'] = 'FURY'
-df_kill.team[df_kill.team == 'Victim FTF'] = 'VTF'
+df_kill.team = df_team.team
 
 ##phase
 for x in range(1,len(df_kill.columns)-1):
