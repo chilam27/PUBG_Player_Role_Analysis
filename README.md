@@ -7,7 +7,7 @@ Analyzing professional players in Player Unknown's Battlegrounds (PUBG) tourname
 
 ## Table of Contents
 
-* [Backgorund and Motivation](#backgorund-and-motivation)
+* [Background and Motivation](#background-and-motivation)
 * [Prerequisites](#prerequisites)
 * [Project Outline](#project-outline)
   * [Data Collection](#data-collection)
@@ -19,7 +19,7 @@ Analyzing professional players in Player Unknown's Battlegrounds (PUBG) tourname
 * [Author](#author)
 * [Acknowledgments](#acknowledgments)
 
-## Backgorund and Motivation
+## Background and Motivation
 
 
 
