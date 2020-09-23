@@ -11,6 +11,7 @@ import seaborn as sns
 from sklearn.preprocessing import StandardScaler
 from sklearn.cluster import KMeans
 from kneed import KneeLocator
+import statsmodels.api as sm
 import matplotlib.pyplot as plt
 %matplotlib inline
 pd.set_option('display.max_columns', 100)
@@ -66,15 +67,14 @@ frame = pd.DataFrame(data_scaled)
 frame['cluster'] = pred
 frame['cluster'].value_counts()
 
+df_player['cluster'] = frame['cluster']
+
 ##Scatter plot
 plt.figure(figsize=(12,6))
-plt.scatter(df_player['rank'], frame['cluster'])
-
+plt.scatter(df_player['rank'], df_player['cluster'])
 
 #Examine clusters
 ##Correlation Heat Map
-df_player['cluster'] = frame['cluster']
-
 corr = df_player.corr()
 plt.subplots(figsize=(15, 12))
 sns.heatmap(corr, vmax = .8, square = True, annot = True, cmap = "YlGnBu")
@@ -122,3 +122,12 @@ plt.scatter(df_player['team_placement'], df_player['cluster'], s=100, alpha=0.5)
 plt.xlabel('Team Placement')
 plt.ylabel('Cluster')
 plt.grid()
+
+#Regression model
+##Create dummies variable
+df_cluster = pd.get_dummies(df_player, columns=['cluster']).iloc[:,-7:]
+
+##Create model
+model_perfect = sm.OLS(df_player['team_placement'], df_cluster)
+results = model_perfect.fit()
+print(results.summary())
