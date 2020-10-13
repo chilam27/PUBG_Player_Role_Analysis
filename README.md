@@ -79,25 +79,47 @@ I created this web scraper for table data through `selenium` to get the data fro
 
 ### [EDA](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_EDA.ipynb)
 
-* Take a look at the dimensions of the three tables and their first five rows. The two data frames that I will focus on the most are: "df_player" (player stats) and "df_kill" (kill/phase). 
+* Take a look at the dimensions of the three tables and their first five rows. The two data frames that I will focus on the most are "df_player" (player stats) and "df_kill" (kill/phase).
 
 <p align="center">
   <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f1.png">
 </p>
 
-* The first variable I examine is "kill" count. The distribution below seems to follow a bimodal distribution with the two modes are around 15 and 20. It does have one outlier with a value around 39. It is interesting that the distribution is bimodal instead of (approximately) normal distribution. Maybe the median can act as a clear separation between the higher kills group and the lower kills group.
+* The first variable I examine is the "kill" count. The distribution below seems to follow a bimodal distribution with the two modes are around 15 and 20. It does have one outlier with a value of around 39. Interestingly, the distribution is bimodal instead of (approximately) normal distribution. Maybe the median can act as a clear separation between the higher kills group and the lower kills group.
 
 <p align="center">
   <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f2.png">
 </p>
 
-* Because kill count is the main determination of the rank of the player. I want to see what kind of relation shipp does "kill" has with the overall "team_placement" by plotting a group of box plot below. In this figure, although not so clear, but there is a trend that the higher the team ranking is, the higher the kill count range is. I am the most suprised by the 1st ranking team because, it seems like, the team kill counts is quite low except for one outstand player in the team with the highest kill out of all player in the tournament.
+* Because the kill count is the main determination of the rank of the player. I want to see what kind of relationship does "kill" has with the overall "team_placement" by plotting a group of box plot below. In this figure, although not so clear, there is a trend that the higher the team ranking is, the higher the kill count range is. I am the most surprised by the 1st ranking team because it seems like, the team kills counts is quite low except for one outstanding player in the team with the highest kill out of all players in the tournament.
 
 <p align="center">
   <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f2.png">
 </p>
 
-* Next I compare players' damage, knock, kill and assist statistics. In order to do so, I need to unify all unit of the variables (for damage, I divide the value by 100 because a player health is out of 100).
+* Next, I compare the players' damage, knock, kill, and assist statistics. To do so, I need to unify all units of the variables (for damage, I divide the value by 100 because player health is out of 100). Interestingly, the trends for damage, knock, and assist are very similar while the kill count's trend is very smooth. It is expected that, on the player's average, the kill count would be higher than the knock count but lower than the damage dealt because players tend to steal kill (one player knock a player but the other finished him) of each other.
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f3.png">
+</p>
+
+* For the number of matches, players compete in, I plot a histogram count plot to see how many substitute players are there. In the later part, I will do some comparative analysis between the group of main and substitute players.
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f4.png">
+</p>
+
+* Similar to the kill count's trend, though not so clear and quite weak, the survival times of players increases as the player's rank (and kill) increases. It then can be said that the player that kills more has a higher chance of surviving longer in a match. We can especially see the trend very clearly when I group players that are in the same team for each box plot in figure 6. For the first ranking team, compensate for their average kill counts, it seems like the team got the most point from surviving into the later rounds.
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f5.png">
+</p>
+
+* I plotted the two variables' accuracy and longest to see if they have any relationship. I assumed that the higher the player that has longer kill range is more likely to have higher accuracy compare to others. But the figure below shows that it is not true.
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f6.png">
+</p>
 
 
 ### [Model Building](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_ModelBuilding.py)
