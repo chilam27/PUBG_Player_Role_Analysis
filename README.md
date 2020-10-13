@@ -79,6 +79,25 @@ I created this web scraper for table data through `selenium` to get the data fro
 
 ### [EDA](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_EDA.ipynb)
 
+* Take a look at the dimensions of the three tables and their first five rows. The two data frames that I will focus on the most are: "df_player" (player stats) and "df_kill" (kill/phase). 
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f1.png">
+</p>
+
+* The first variable I examine is "kill" count. The distribution below seems to follow a bimodal distribution with the two modes are around 15 and 20. It does have one outlier with a value around 39. It is interesting that the distribution is bimodal instead of (approximately) normal distribution. Maybe the median can act as a clear separation between the higher kills group and the lower kills group.
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f2.png">
+</p>
+
+* Because kill count is the main determination of the rank of the player. I want to see what kind of relation shipp does "kill" has with the overall "team_placement" by plotting a group of box plot below. In this figure, although not so clear, but there is a trend that the higher the team ranking is, the higher the kill count range is. I am the most suprised by the 1st ranking team because, it seems like, the team kill counts is quite low except for one outstand player in the team with the highest kill out of all player in the tournament.
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f2.png">
+</p>
+
+* Next I compare players' damage, knock, kill and assist statistics. In order to do so, I need to unify all unit of the variables (for damage, I divide the value by 100 because a player health is out of 100).
 
 
 ### [Model Building](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_ModelBuilding.py)
