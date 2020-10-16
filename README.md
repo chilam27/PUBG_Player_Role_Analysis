@@ -194,7 +194,59 @@ I created this web scraper for table data through `selenium` to get the data fro
 
 ### [Model Building](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_ModelBuilding.py)
 
+* Although we have three dataset, for model building part, I will mostly focus on "df_player" since it has all the information we need to group players together. Only one variable ("main_weapon") in the "df_player" dataset is not numerical so I transform it from categorical variable into dummy (numercial) variables.
 
+* I standardize features in the dataset using `StandardScaler()`
+
+* I created an unsupervised machine learning model k-means clustering to partition all the players into different number of clusters (k clusters).Although I had "n_clusters" = 2, it is only an assumption number. I choose 4 because each team can only have the maximum of 4 players play at a time. Usually there are specific roles divided among the 4 of them hence why I chose 4. I will choose a better number later with a method call "elbow curve method". 
+
+```python
+kmeans = KMeans(n_clusters = 4, init='k-means++', random_state = 1).fit(data_scaled)
+```
+
+* Using the `inertia_` attribute on to the "kmeans" model, it returns the sum of squares distances of samples to their closest cluster center.
+
+```python
+kmeans.inertia_
+Out[12]: 599.5196341063314
+```
+
+* Next, I created a for loop to initialize the elbow curve method (or elbow method). This is a very fundamental step for finding and selecting the optimal number for k (clusters) by fitting it with a range of k values. For each value of k, it calculates and plot the sum of squared errors (SSE).
+
+```python
+SSE = []
+for cluster in range(1,20):
+    kmeans = KMeans(n_clusters = cluster, init = 'k-means++', random_state = 1)
+    kmeans.fit(data_scaled)
+    SSE.append(kmeans.inertia_)
+frame = pd.DataFrame({'Cluster':range(1,20), 'SSE':SSE})
+```
+
+* I then plot the SSE using different values of Inertia (from 0 to 20).
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f23.png">
+</p>
+
+* Python has a very cool library call `kneed` that has the function `KneeLocator`. What this function does is it detects knee-point on the data. Which is perfect for me because in order to find the best k value, I need to select the value of k at the “elbow” (the point after which the inertia start decreasing in a linear fashion). It will return the k value that we need for our cluster model.
+
+```python
+kmeans = KMeans(n_clusters = kl.elbow, init = 'k-means++', random_state = 1).fit(data_scaled)
+pred = kmeans.predict(data_scaled)
+```
+
+* The k value that `KneeLocator` returns is 8, which means there are 8 different groups among the players. Here are a list of numbers of player in each of the cluster:
+
+Clusters | Number of Players
+:-------:|:-----------------:
+7        |14
+5        |12
+2        |11
+0        |11
+1        |8
+6        |4
+3        |4
+4        |2
 
 ### Overall Model Performance
 
