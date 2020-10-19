@@ -248,9 +248,29 @@ Clusters | Number of Players
 3        |4
 4        |2
 
+* I plotted a scatter plot with the player's rank against the cluster variable to see whether we can see any pattern based on this relationship. There is not a clear pattern that I can determine based on this figure, which is good! Because this means that the model has also considered other variables and not just only the player's rank (or kill count). We will look at the cluster variable with some other ones later in the conclusion part of this project.
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f24.png">
+</p>
+
+* Lastly, I created a simple OLS regression model to look closely at the relationship between "team_placement" and "cluster" variables. I want to see whether we can use this cluster to predict which team will have a higher chance at ranking higher in this tournament or any other tournaments.
+
+```python
+df_cluster = pd.get_dummies(df_player, columns=['cluster']).iloc[:,-7:]
+kmeans = KMeans(n_clusters = kl.elbow, init = 'k-means++', random_state = 1).fit(data_scaled)
+pred = kmeans.predict(data_scaled)
+```
+
+<p align="center">
+  <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f25.png">
+</p>
+
 ### Overall Model Performance
 
+Although there is not easy to evaluate an unsupervised machine learning model, because the "knee" cannot be easily identified in figure 23, I would say that our data is not good enough for the model to group different players.
 
+Based on the OLS Regression Results in figure 25, both of the coefficients of determination values (R-squared and Adj R-squared) are above 0.75. I can say that the regression model fits the data well and it can explain the "team_placement" variable (dependent variable).
 
 ## Conclusion
 
