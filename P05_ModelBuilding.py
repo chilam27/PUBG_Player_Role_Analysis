@@ -34,7 +34,7 @@ data_scaled = scaler.fit_transform(df_player2)
 
 #K-means clustering
 ##Defining the kmeans function with initialization as k-means++
-kmeans = KMeans(n_clusters = 2, init='k-means++', random_state = 1).fit(data_scaled)
+kmeans = KMeans(n_clusters = 4, init='k-means++', random_state = 1).fit(data_scaled)
 
 ##Inertia on the fitted data
 kmeans.inertia_
@@ -52,6 +52,7 @@ frame = pd.DataFrame({'Cluster':range(1,20), 'SSE':SSE})
 ###Converting the results into a dataframe and plotting them
 plt.figure(figsize=(12,6))
 plt.plot(frame['Cluster'], frame['SSE'], marker='o')
+plt.title("Figure 23: The Elbow Method Using Inertia")
 plt.xlabel('Number of clusters')
 plt.ylabel('Inertia')
 
@@ -72,52 +73,50 @@ df_player['cluster'] = frame['cluster']
 ##Scatter plot
 plt.figure(figsize=(12,6))
 plt.scatter(df_player['rank'], df_player['cluster'])
+plt.title("Figure 24: Scatter Plot of Clusters and Player's Rank")
+plt.ylabel("Cluster")
+plt.xlabel("Player's rank")
 
 #Examine clusters
-##Correlation Heat Map
+##Correlation Heat map
 corr = df_player.corr()
 plt.subplots(figsize=(15, 12))
 sns.heatmap(corr, vmax = .8, square = True, annot = True, cmap = "YlGnBu")
-plt.title('Figure n: variables correlations heatmap', fontsize=15)
+plt.title('Figure 26: variables correlations heatmap', fontsize=15)
 
 ##Look at each cluster
-plt.subplots(figsize=(15, 23))
-
-plt.subplot(421)
-plt.title('Figure n: "match" statistics of each cluster', fontsize=15)
+plt.subplots(figsize=(6, 6))
+plt.title('Figure 27: "match" statistics of each cluster', fontsize=15)
 sns.boxplot(x = df_player['cluster'], y = df_player['match'])
 
-plt.subplot(422)
-plt.title('Figure n: "damages_per_match" statistics of each cluster', fontsize=15)
+plt.subplots(figsize=(14, 8))
+plt.subplot(121)
+plt.title('Figure 28: "damages_per_match" statistics of each cluster', fontsize=15)
 sns.boxplot(x = df_player['cluster'], y = df_player['damages_per_match'])
 
-plt.subplot(423)
-plt.title('Figure n: "kill_per_match" statistics of each cluster', fontsize=15)
+plt.subplot(122)
+plt.title('Figure 29: "kill_per_match" statistics of each cluster', fontsize=15)
 sns.boxplot(x = df_player['cluster'], y = df_player['kill_per_match'])
 
-plt.subplot(424)
-plt.title('Figure n: "survive" statistics of each cluster', fontsize=15)
+plt.subplots(figsize=(6, 6))
+plt.title('Figure 30: "survive" statistics of each cluster', fontsize=15)
 sns.boxplot(x = df_player['cluster'], y = df_player['survive'])
 
-plt.subplot(425)
-plt.title('Figure n: "assist" statistics of each cluster', fontsize=15)
+plt.subplots(figsize=(6, 6))
+plt.title('Figure 31: "assist" statistics of each cluster', fontsize=15)
 sns.boxplot(x = df_player['cluster'], y = df_player['assist'])
 
-plt.subplot(426)
-plt.title('Figure n: "longest" statistics of each cluster', fontsize=15)
-sns.boxplot(x = df_player['cluster'], y = df_player['longest'])
-
-plt.subplot(427)
-plt.title('Figure n: "traveled" statistics of each cluster', fontsize=15)
+plt.subplots(figsize=(6, 6))
+plt.title('Figure 32: "traveled" statistics of each cluster', fontsize=15)
 sns.boxplot(x = df_player['cluster'], y = df_player['traveled'])
 
-plt.subplot(428)
-plt.title('Figure n: "accuracy" statistics of each cluster', fontsize=15)
+plt.subplots(figsize=(6, 6))
+plt.title('Figure 33: "accuracy" statistics of each cluster', fontsize=15)
 sns.boxplot(x = df_player['cluster'], y = df_player['accuracy'])
 
 ##clusters of each team
 plt.subplots(figsize=(10, 6))
-plt.title('Figure n: different cluster in each team', fontsize=15)
+plt.title('Figure 34: different cluster in each team', fontsize=15)
 plt.scatter(df_player['team_placement'], df_player['cluster'], s=100, alpha=0.5)
 plt.xlabel('Team Placement')
 plt.ylabel('Cluster')
@@ -127,7 +126,7 @@ plt.grid()
 ##Create dummies variable
 df_cluster = pd.get_dummies(df_player, columns=['cluster']).iloc[:,-7:]
 
-##Create model
+##Create an OLS model
 model_perfect = sm.OLS(df_player['team_placement'], df_cluster)
 results = model_perfect.fit()
 print(results.summary())
