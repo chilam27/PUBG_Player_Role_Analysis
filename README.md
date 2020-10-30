@@ -1,9 +1,9 @@
 # PUBG_Tournament_Analysis
-Analyzing professional players in Player Unknown's Battlegrounds (PUBG) tournaments
+Grouping professional players in Player Unknown's Battlegrounds (PUBG) PCS Charity Showdown tournament into different groups of players using the k-means model. The tournament data will be scraped by `selenium` on the [https://esports.pubgrank.org/](https://esports.pubgrank.org/) page. Building a simple regression model to analyze the relationship between the players from different clusters in each team and the team's overall placement in the tournament.
 
 ## TL;DR
 
-
+Based on the elbow method, the model created 8 different clusters of players from the input data. Because of their distinct characteristics, I can label 6 clusters out of 8 total with titles: gunner, supporter, substitute player, and worst-performing player. The Adj R-squared value for the OLS regression is 0.754.
 
 ## Table of Contents
 
@@ -322,10 +322,22 @@ pred = kmeans.predict(data_scaled)
 
 ## Conclusion
 
+From the post model creation analysis that I did in the part above, I was able to label 6 groups out of the total 8 clusters the k-means model returned from the input data. First, I found out that cluster 4 is the substitute player. Based on having higher statistics for damage and survival time, both cluster 6 and 0 can be seen as the gunners of the teams. Another important position in the team is the supporter which is the label I have for clusters 2 and 5. The last group I could identify is cluster 7 being the worst-performing group. I could not determine clusters 1 and 3 because they do not have distinct characteristics. If I can collect more different data (such as health recovered, average kill distance, etc.), they might be more apparent when I am looking at those variables. Just from this model and the result, I believe the cluster model has done a good job of grouping players that are similar together.
 
+One thing that surprised me was how high the correlation is between the players from different clusters in each team and the team's overall placement (with Adj. R-squared value is 0.754). This means that there is a predictable pattern in which the team is more likely to have higher placement if it has certain types of players. This is a major finding that will help many PUBG esports analysis or PUBG esports organizations to take note if they want the team to perform better and win different tournaments. This information can help with anything from figure out what is the dynamic of the team should be to which player should they recruit for the team.
+
+Personally, I feel that I have done a good job on this project. Because my main focus was data visualization and EDA, I have spent many hours exploring different plots and retrieve useful information. But I also believe that there are better ways to present the figures that I have above. One improvement I would have for this project is to find out the more advanced methodology to make the graph more beautiful and easy to read.
+
+If I was to continue with this project, I would want to try out different numbers of k to compare the different results. Because I could only label 6 clusters, I would want to see what will happen if I reduce the k value to 6. The last thing I would want to do is to figure out what cluster pattern, specifically, will result in a higher team's placement. With the information that I can get from it, I will have a higher chance of guessing whether my favorite team's line up will make me happy or sad in the next tournament.
 
 ## Author
 
 * **Chi Lam**, _student_ at Michigan State University - [chilam27](https://github.com/chilam27)
 
 ## Acknowledgments
+
+[APAC PUBG Continental Series Charity Showdown 2020 Statistics](https://sea.pubgrank.org/pcs-charity-showdown#information)
+
+[Sharma, Pulkit. “The Most Comprehensive Guide to K-Means Clustering You’Ll Ever Need.” Analytics Vidhya, 19 Aug. 2019.](www.analyticsvidhya.com/blog/2019/08/comprehensive-guide-k-means-clustering/)
+
+[365 Data Science, "K Means Clustering: Pros and Cons of K Means Clustering." Youtube, 24 Jan. 2019.](https://www.youtube.com/watch?v=YIGtalP1mv0)
