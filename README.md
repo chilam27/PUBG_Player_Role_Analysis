@@ -1,4 +1,4 @@
-# Professional_PUBG_Player_Role_Analysis
+# PUBG_Player_Role_Analysis
 Grouping professional players in Player Unknown's Battlegrounds (PUBG) PCS Charity Showdown tournament into different groups of players using the k-means model. The tournament data will be scraped by `selenium` on the [https://esports.pubgrank.org/](https://esports.pubgrank.org/) page. Building a simple regression model to analyze the relationship between the players from different clusters in each team and the team's overall placement in the tournament.
 
 ## TL;DR
