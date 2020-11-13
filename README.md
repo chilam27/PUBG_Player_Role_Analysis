@@ -44,8 +44,9 @@ Packages: selenium, pandas, numpy, matplotlib, seaborn, sklearn, kneed, statsmod
 
 1. Data Collection: I used `selenium` to scrape a table data from "[https://sea.pubgrank.org/pcs-charity-showdown#information](https://sea.pubgrank.org/pcs-charity-showdown#information)". This website is very useful because it has all sort of statistics related to the teams and players in the tournament's final stage. I scaped three different tables: result, player stats, and kill/phase.
 2. Data Cleaning: I unified all the teams names to their abbreviation; remove the unit word (s, m, etc) for all values.
-3. Exploratory Data Analysis (EDA): explore different relationships betweeen variables using graphs (line, scatter, bar, etc.) and heat map.
-4. Model Building: build a k-means model with data from "df_player" data frame; use the elbow method to determine the optimal number of "k"; created a simple OLS regression model to see whether different clusters of player per team has any relationship with the team overall placement.
+3. Exploratory Data Analysis (EDA): explore different relationships between variables using graphs (line, scatter, bar, etc.) and heat map.
+4. Model Building: build a k-means model with data from the "df_player" data frame; use the elbow method to determine the optimal number of "k"; created a simple OLS regression model to see whether different clusters of player per team has any relationship with the team overall placement.
+
 
 ### [Data Collection](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_DataCollection.py)
 
