@@ -21,15 +21,15 @@ Based on the elbow method, the model created 8 different clusters of players fro
 
 ## Background and Motivation
 
-PlayerUnknown's Battlegrounds (PUBG) Mobile is a game that just recently made me start to like video games again after six long years of me not playing any. It is an online multiplayer game developed and published by PUBG Corporation. Although I only played the mobile version of it, I love to watch different PUBG eSport tournaments and cheer for my favorite teams. In the middle of May of 2020, PUBG had an online regional tournament structure call the PUBG Continental Series (PCS) Charity Showdown. It is a series of global events wherein each region, teams will compete for $200,000 with $100,000 of that pot being donated to a charity of the winning team’s choosing. To me, this is a very exciting tournament for two reasons. First, my favorite team (Division X Gaming) is one of the teams from Vietnam to enter the final stage, compete with different teams in the APAC region and won! The last reason is that it is a huge deal for any winning team to be able to bring that winning cash prize back to their countries to support the community during this crazy pandemic time.
+PlayerUnknown's Battlegrounds (PUBG) Mobile is a game that just recently made me start to like video games again after six long years of me not playing any. It is an online multiplayer game developed and published by PUBG Corporation. Although I only played the mobile version of it, I love to watch different PUBG eSport tournaments and cheer for my favorite teams. In the middle of May of 2020, PUBG had an online regional tournament structure call the PUBG Continental Series (PCS) Charity Showdown. It is a series of global events wherein each region, teams will compete for $200,000 with $100,000 of that pot being donated to a charity of the winning team’s choosing. To me, this is a very exciting tournament for two reasons. First, my favorite team (Division X Gaming) is one of the teams from Vietnam to enter the final stage, compete with different teams in the APAC region, and won! The last reason is that it is a huge deal for any winning team to be able to bring that winning cash prize back to their countries to support the community during this crazy pandemic time.
 
-Usually, in a team-based game, there are specific roles for each member of the team. Each role is associated with different responsibilities but ultimately they help to lead the team to its final goal. That is not so clear for this tournament because only some teams stated their players' roles. For this project, I will analyze all players' statistics in the final stage of the PUBG PCS Charity Showdown tournament to see if I can use machine learning to group players with similar characteristics together to form different groups. This will help me to identify different roles among all players and to see if there is any trend that associates with the overall team placements. To do so, I need to learn about a different type of machine learning compare to what I have used. This time, I will need to learn about clustering in unsupervised machine learning to segregate data based on the similarity between data instances. Here are some of the objectives I look forward to achieve for this project:
+Usually, in a team-based game, there are specific roles for each member of the team. Each role is associated with different responsibilities but ultimately they help to lead the team to its final goal. That is not so clear for this tournament because only some teams stated their players' roles. For this project, I will analyze all players' statistics in the final stage of the PUBG PCS Charity Showdown tournament to see if I can use machine learning to group players with similar characteristics together to form different groups. This will help me to identify different roles among all players and to see if there is any trend that associates with the overall team placements. To do so, I need to learn about a different type of machine learning compare to what I have used. This time, I will need to learn about clustering in unsupervised machine learning to segregate data based on the similarity between data instances. Here are some of the objectives I look forward to achieving for this project:
 
 1. Scrape table data from a website using `selenium`
 2. Improve my EDA skills
 3. Build a `K-means` clustering model to group players together
 
-This will be a very fun project for me to do and will also be a very useful model to provide insightful information for PUBG eSport teams analysts to see what type of players they have and what they need in order to be the best team. Here are some of the questions that this project can answer:
+This will be a very fun project for me to do and will also be a very useful model to provide insightful information for PUBG esports teams analysts to see what type of players they have and what they need in order to be the best team. Here are some of the questions that this project can answer:
 
 1. How many types of players are there in the PCS Charity Showdown tournament?
 2. What are the players' roles that high placement teams have in common? 
@@ -42,15 +42,15 @@ Packages: selenium, pandas, numpy, matplotlib, seaborn, sklearn, kneed, statsmod
 
 ## Project Outline
 
-1. Data Collection: I used `selenium` to scrape a table data from "[https://sea.pubgrank.org/pcs-charity-showdown#information](https://sea.pubgrank.org/pcs-charity-showdown#information)". This website is very useful because it has all sort of statistics related to the teams and players in the tournament's final stage. I scaped three different tables: result, player stats, and kill/phase.
-2. Data Cleaning: I unified all the teams names to their abbreviation; remove the unit word (s, m, etc) for all values.
-3. Exploratory Data Analysis (EDA): explore different relationships between variables using graphs (line, scatter, bar, etc.) and heat map.
+1. Data Collection: I used `selenium` to scrape a table data from "[https://sea.pubgrank.org/pcs-charity-showdown#information](https://sea.pubgrank.org/pcs-charity-showdown#information)". This website is very useful because it has all sorts of statistics related to the teams and players in the tournament's final stage. I scaped three different tables: result, player stats, and kill/phase.
+2. Data Cleaning: I unified all the teams' names to their abbreviation; remove the unit word (s, m, etc) for all values.
+3. Exploratory Data Analysis (EDA): explore different relationships between variables using graphs (line, scatter, bar, etc.) and heat maps.
 4. Model Building: build a k-means model with data from the "df_player" data frame; use the elbow method to determine the optimal number of "k"; created a simple OLS regression model to see whether different clusters of player per team has any relationship with the team overall placement.
 
 
 ### [Data Collection](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_DataCollection.py)
 
-I created this web scraper for table data through `selenium` to get the data from three different tables. Then, I exported these data into three CSV files. The general description of each data frames and their columns are listed below:
+I created this web scraper for table data through `selenium` to get the data from three different tables. Then, I exported these data into three CSV files. The general description of each data frame and its columns are listed below:
 
 * Result (16,43): has the general information of all the 16 teams and their points (kill and placement points) for all 20 rounds (the entire final stage has 20 rounds).
 * Player stats (66,12): contains more specific statistics of each of the 66 players; the 12 columns in the table are:
@@ -70,13 +70,13 @@ I created this web scraper for table data through `selenium` to get the data fro
 
 ### [Data Cleaning](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05.DataCleaning.py)
 
-* Cleaned up text in teams name and change it to its abbreviation form
-* Return the current "survive" column time format (xx m xx s)to second
+* Cleaned up text in teams name and change it to its abbreviation form.
+* Return the current "survive" column time format (xx m xx s) to second.
 * Remove the unit word (s, m, etc) for all values.
-* Return the percentage value in "accuracy" column to its decimal form
-* Created two new columns: "kill_per_match" (player's average kill count per match) and "damages_per_match" (player's average damage per match)
-* Created a team placement for each player in the player data frame
-* Reformat the values in kill data frame 
+* Return the percentage value in the "accuracy" column to its decimal form.
+* Created two new columns: "kill_per_match" (player's average kill count per match) and "damages_per_match" (player's average damage per match).
+* Created a team placement for each player in the player data frame.
+* Reformat the values in the kill data frame.
 
 ### [EDA](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_EDA.ipynb)
 
@@ -92,7 +92,7 @@ I created this web scraper for table data through `selenium` to get the data fro
   <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f2.png">
 </p>
 
-* Because the kill count is the main determination of the rank of the player. I want to see what kind of relationship does "kill" has with the overall "team_placement" by plotting a group of box plot below. In this figure, although not so clear, there is a trend that the higher the team ranking is, the higher the kill count range is. I am the most surprised by the 1st ranking team because it seems like, the team kills counts is quite low except for one outstanding player in the team with the highest kill out of all players in the tournament.
+* Because the kill count is the main determination of the rank of the player. I want to see what kind of relationship does "kill" has with the overall "team_placement" by plotting a group of box plots below. In this figure, although not so clear, there is a trend that the higher the team ranking is, the higher the kill count range is. I am the most surprised by the 1st ranking team because it seems like, the team kills counts are quite low except for one outstanding player in the team with the highest kill out of all players in the tournament.
 
 <p align="center">
   <img width="800" height="500" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f3.png">
@@ -126,13 +126,13 @@ I created this web scraper for table data through `selenium` to get the data fro
   <img width="700" height="500" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f8.png">
 </p>
 
-* The next relationship I want to examine is the travel distance ("traveled") and players' ranks ("rank"). I assumed that the player with more kill would make more rotations compare to others to get the kill (or would rotate to a better place beforehand and wait for others to come). Based on the figure below, almost all player's travel distance scatter around the 80 - 140 (km) range with two noticeable outliers that have values below 60. There does not seem to be any clear relationship between the two variables.
+* The next relationship I want to examine is the travel distance ("traveled") and players' ranks ("rank"). I assumed that the player with more kills would make more rotations compare to others to get the kill (or would rotate to a better place beforehand and wait for others to come). Based on the figure below, almost all player's travel distances scatter around the 80 - 140 (km) range with two noticeable outliers that have values below 60. There does not seem to be any clear relationship between the two variables.
 
 <p align="center">
   <img width="700" height="500" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f9.png">
 </p>
 
-* Then, I tried using a different variable to see if I can create any connection with the "travel" variable. Interestingly, there does seem to be a weak but positive correlation between "traveled" and "damages". This relationship might make more sense because of the kill steal would have a big impact on the last relationship (between "traveled" and "kill"). But "damages" draws a better picture to help support my assumption.
+* Then, I tried using a different variable to see if I can create any connection with the "travel" variable. Interestingly, there does seem to be a weak but positive correlation between "traveled" and "damages". This relationship might make more sense because the kill steal would have a big impact on the last relationship (between "traveled" and "kill"). But "damages" draws a better picture to help support my assumption.
 
 <p align="center">
   <img width="700" height="500" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f10.png">
@@ -144,7 +144,7 @@ I created this web scraper for table data through `selenium` to get the data fro
   <img width="500" height="500" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f11.png">
 </p>
 
-* For the "main_weapon", I want to compare it with two other variables: "accuracy" and "damages". For the first relationship in figure 12, i t seems like HK416 (assault rifle) has a slightly higher accuracy compare to the other two weapons (designated marksman rifle). I can see why this is the case because a player has a better chance of shooting at his opponent in close-range. In figure 13, it seems like a player that uses the FNFal has higher damage compare to the other two. Although it is harder to hit an opponent in long-range, FNal deals the most damage per hit out of all the three weapons.
+* For the "main_weapon", I want to compare it with two other variables: "accuracy" and "damages". For the first relationship in figure 12, it seems like HK416 (assault rifle) has a slightly higher accuracy compare to the other two weapons (designated marksman rifle). I can see why this is the case because a player has a better chance of shooting at his opponent in close range. In figure 13, it seems like a player that uses the FNFal has higher damage compare to the other two. Although it is harder to hit an opponent in long-range, FNal deals the most damage per hit out of all three weapons.
 
 <p align="center">
   <img width="700" height="500" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f12_13.png">
@@ -168,13 +168,13 @@ I created this web scraper for table data through `selenium` to get the data fro
   <img width="700" height="700" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f18.png">
 </p>
 
-* Next, I want to examine the "df_kill" data frame to see the overall action of matches in the tournament. The figure below shows the kill percentage of different phases from each team. Those teams that have a high percentage in phase 1 are those that fight earlier in the game to claim their looting spot. Then tension slowly builds up to phase 4 or 5 where most teams will need to fight for their spots on the map. Although the percentage should continue to rise up from here, since the number of player decrease then so does the kill percentage (because there is less player to kill).
+* Next, I want to examine the "df_kill" data frame to see the overall action of matches in the tournament. The figure below shows the kill percentage of different phases from each team. Those teams that have a high percentage in phase 1 are those that fight earlier in the game to claim their looting spot. Then tension slowly builds up to phase 4 or 5 where most teams will need to fight for their spots on the map. Although the percentage should continue to rise from here since the number of player decrease then so does the kill percentage (because there is less player to kill).
 
 <p align="center">
   <img width="700" height="400" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f19.png">
 </p>
 
-* For the last three plots, I want to examine the team's placement pattern of three different teams (each from the top 5, top 10, and top 16 of the overall team placement). Figure 18 shows team Division X Gaming's (DXG, 1st ranked team) team placement pattern. Interestingly, this 1st ranked team had about as much bad performance matches (ranked below 8th) as much as the good ones (ranked above 8th). DXG was the first team to exit a match twice (ranked 16th) but they did balance it out with two matches winning the Winner Winner Chicken Dinner (rank 1st).
+* For the last three plots, I want to examine the team's placement pattern of three different teams (each from the top 5, top 10, and top 16 of the overall team placement). Figure 18 shows team Division X Gaming's (DXG, 1st ranked team) team placement pattern. Interestingly, this 1st ranked team had about as many bad performance matches (ranked below 8th) as much as the good ones (ranked above 8th). DXG was the first team to exit a match twice (ranked 16th) but they did balance it out with two matches winning the Winner Winner Chicken Dinner (rank 1st).
 
 <p align="center">
   <img width="700" height="400" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f20.png">
@@ -195,11 +195,11 @@ I created this web scraper for table data through `selenium` to get the data fro
 
 ### [Model Building](https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/P05_ModelBuilding.py)
 
-* Although we have three dataset, for model building part, I will mostly focus on "df_player" since it has all the information we need to group players together. Only one variable ("main_weapon") in the "df_player" dataset is not numerical so I transform it from categorical variable into dummy (numercial) variables.
+* Although we have three datasets, for the model building part, I will mostly focus on "df_player" since it has all the information we need to group players. Only one variable ("main_weapon") in the "df_player" dataset is not numerical so I transform it from the categorical variable into dummy (numerical) variables.
 
 * I standardize features in the dataset using `StandardScaler()`
 
-* I created an unsupervised machine learning model k-means clustering to partition all the players into different number of clusters (k clusters).Although I had "n_clusters" = 2, it is only an assumption number. I choose 4 because each team can only have the maximum of 4 players play at a time. Usually there are specific roles divided among the 4 of them hence why I chose 4. I will choose a better number later with a method call "elbow curve method". 
+* I created an unsupervised machine learning model k-means clustering to partition all the players into different numbers of clusters (k clusters). Although I had "n_clusters" = 2, it is only an assumption number. I choose 4 because each team can only have a maximum of 4 players play at a time. Usually, there are specific roles divided among the 4 of them hence why I chose 4. I will choose a better number later with a method called the "elbow curve method". 
 
 ```python
 kmeans = KMeans(n_clusters = 4, init='k-means++', random_state = 1).fit(data_scaled)
@@ -229,14 +229,14 @@ frame = pd.DataFrame({'Cluster':range(1,20), 'SSE':SSE})
   <img width="700" height="400" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f23.png">
 </p>
 
-* Python has a very cool library call `kneed` that has the function `KneeLocator`. What this function does is it detects knee-point on the data. Which is perfect for me because in order to find the best k value, I need to select the value of k at the “elbow” (the point after which the inertia start decreasing in a linear fashion). It will return the k value that we need for our cluster model.
+* Python has a very cool library call `kneed` that has the function `KneeLocator`. What this function does is it detects knee-point on the data. This is perfect for me because, to find the best k value, I need to select the value of k at the “elbow” (the point after which the inertia starts decreasing linearly). It will return the k value that we need for our cluster model.
 
 ```python
 kmeans = KMeans(n_clusters = kl.elbow, init = 'k-means++', random_state = 1).fit(data_scaled)
 pred = kmeans.predict(data_scaled)
 ```
 
-* The k value that `KneeLocator` returns is 8, which means there are 8 different groups among the players. Here are a list of numbers of player in each of the cluster:
+* The k value that `KneeLocator` returns is 8, which means there are 8 different groups among the players. Here is a list of numbers of players in each of the clusters:
 
 Clusters | Number of Players
 :-------:|:-----------------:
@@ -255,7 +255,7 @@ Clusters | Number of Players
   <img width="700" height="400" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f24.png">
 </p>
 
-* Lastly, I created a simple OLS regression model to look closely at the relationship between "team_placement" and "cluster" variables. I want to see whether we can use this cluster to predict which team will have a higher chance at ranking higher in this tournament or any other tournaments.
+* Lastly, I created a simple OLS regression model to look closely at the relationship between "team_placement" and "cluster" variables. I want to see whether we can use this cluster to predict which team will have a higher chance at ranking higher in this tournament or any other tournament.
 
 ```python
 df_cluster = pd.get_dummies(df_player, columns=['cluster']).iloc[:,-7:]
@@ -273,7 +273,7 @@ pred = kmeans.predict(data_scaled)
 
 * Based on the OLS Regression Results in figure 25, both of the coefficients of determination values (R-squared and Adj R-squared) are above 0.75. I can say that the regression model fits the data well and it can explain the "team_placement" variable (dependent variable).
 
-* In the heat map below, I am only interested in the cluster row/column. Although player's rank and "team_placement" are not the main determinants of the cluster, they hold the highest correlation comapare to other variables. Those variables that also have big correlations are the one that realted to "kill" (and "kill_per"match"), "damages" (and "damages_per_match"), and "survival". The one that has the lowest correlation is "accuracy". This make sense because data patterns of the ones that have higher correlations can be easier to identify than "accuracy"'s pattern.
+* In the heat map below, I am only interested in the cluster row/column. Although player's rank and "team_placement" are not the main determinants of the cluster, they hold the highest correlation compare to other variables. Those variables that also have big correlations are the ones that related to "kill" (and "kill_per_match"), "damages" (and "damages_per_match"), and "survival". The one that has the lowest correlation is "accuracy". This make sense because data patterns of the ones that have higher correlations can be easier to identify than "accuracy"'s pattern.
 
 <p align="center">
   <img width="700" height="700" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f26.png">
@@ -291,7 +291,7 @@ pred = kmeans.predict(data_scaled)
   <img width="700" height="400" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f28_29.png">
 </p>
 
-* The trend for the relationship with "survive" is similar to those above: with cluster 6 leads with a higher overall average. But there seems to be a very similar pattern for cluster 0 and 7 compare to the previous relationships. Cluster 0 has very similar characteristics with the gunners from cluster 6. But cluster 7 seems to have a lower performance just by looking at the relationships I have so far (sometimes even lower than the substitute group).
+* The trend for the relationship with "survive" is similar to those above: cluster 6 leads with a higher overall average. But there seems to be a very similar pattern for clusters 0 and 7 compare to the previous relationships. Cluster 0 has very similar characteristics to the gunners from cluster 6. But cluster 7 seems to have a lower performance just by looking at the relationships I have so far (sometimes even lower than the substitute group).
 
 <p align="center">
   <img width="500" height="300" src="https://github.com/chilam27/PUBG_Tournament_Analysis/blob/master/readme_image/f30.png">
@@ -323,13 +323,13 @@ pred = kmeans.predict(data_scaled)
 
 ## Conclusion
 
-From the post model creation analysis that I did in the part above, I was able to label 6 groups out of the total 8 clusters the k-means model returned from the input data. First, I found out that cluster 4 is the substitute player. Based on having higher statistics for damage and survival time, both cluster 6 and 0 can be seen as the gunners of the teams. Another important position in the team is the supporter which is the label I have for clusters 2 and 5. The last group I could identify is cluster 7 being the worst-performing group. I could not determine clusters 1 and 3 because they do not have distinct characteristics. If I can collect more different data (such as health recovered, average kill distance, etc.), they might be more apparent when I am looking at those variables. Just from this model and the result, I believe the cluster model has done a good job of grouping players that are similar together.
+From the post model creation analysis that I did in the part above, I was able to label 6 groups out of the total 8 clusters the k-means model returned from the input data. First, I found out that cluster 4 is the substitute player. Based on having higher statistics for damage and survival time, both clusters 6 and 0 can be seen as the gunners of the teams. Another important position in the team is the supporter which is the label I have for clusters 2 and 5. The last group I could identify is cluster 7 being the worst-performing group. I could not determine clusters 1 and 3 because they do not have distinct characteristics. If I can collect more different data (such as health recovered, average kill distance, etc.), they might be more apparent when I am looking at those variables. Just from this model and the result, I believe the cluster model has done a good job of grouping players that are similar together.
 
 One thing that surprised me was how high the correlation is between the players from different clusters in each team and the team's overall placement (with Adj. R-squared value is 0.754). This means that there is a predictable pattern in which the team is more likely to have higher placement if it has certain types of players. This is a major finding that will help many PUBG esports analysis or PUBG esports organizations to take note if they want the team to perform better and win different tournaments. This information can help with anything from figure out what is the dynamic of the team should be to which player should they recruit for the team.
 
 Personally, I feel that I have done a good job on this project. Because my main focus was data visualization and EDA, I have spent many hours exploring different plots and retrieve useful information. But I also believe that there are better ways to present the figures that I have above. One improvement I would have for this project is to find out the more advanced methodology to make the graph more beautiful and easy to read.
 
-If I was to continue with this project, I would want to try out different numbers of k to compare the different results. Because I could only label 6 clusters, I would want to see what will happen if I reduce the k value to 6. The last thing I would want to do is to figure out what cluster pattern, specifically, will result in a higher team's placement. With the information that I can get from it, I will have a higher chance of guessing whether my favorite team's line up will make me happy or sad in the next tournament.
+If I was to continue with this project, I would want to try out different numbers of k to compare the different results. Because I could only label 6 clusters, I would want to see what will happen if I reduce the k value to 6. The last thing I would want to do is to figure out what cluster pattern, specifically, will result in a higher team's placement. With the information that I can get from it, I will have a higher chance of guessing whether my favorite team's lineup will make me happy or sad in the next tournament.
 
 ## Author
 
